@@ -1,7 +1,22 @@
 h2 {
   color: maroon;
+  font-size: 18px;
+  margin-bottom: 5px;
 }
 
 .infoContainer {
-  max-width: 300px;
+  max-width: 245px;
+  text-align: center;
+  margin-bottom: 30px;
+
+  img {
+    max-width: 160px;
+    background-color: #333;
+    padding: 2px 3px 0;
+    border-radius: 3px;
+  }
+
+  p {
+    margin: 0;
+  }
 }
