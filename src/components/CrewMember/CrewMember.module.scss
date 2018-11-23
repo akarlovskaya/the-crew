@@ -1,13 +1,15 @@
-h2 {
-  color: maroon;
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.infoContainer {
+section .infoContainer {
   max-width: 245px;
   text-align: center;
   margin-bottom: 30px;
+  list-style: none;
+
+  h2 {
+    color: maroon;
+    font-size: 1em;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
 
   img {
     max-width: 160px;

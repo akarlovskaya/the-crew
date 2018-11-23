@@ -5,7 +5,6 @@ import styles from './AddMember.module.scss';
 const AddMember = () => {
   return (
     <div>
-      <h3>Add New Member</h3>
       <form>
         <label htmlFor="name">Name</label>
         <input type="text" id="name"/>

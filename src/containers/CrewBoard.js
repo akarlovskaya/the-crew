@@ -14,7 +14,7 @@ class CrewBoard extends Component {
 
     this.state = {
       members: [],
-      texts: []
+      selectedMember: null,
     }
   }
 
@@ -26,61 +26,60 @@ class CrewBoard extends Component {
     .then(response => {
       // store only last 6 users
       const members = response[0].data.slice(-6);
-      // add to each member avatar image
+      const texts = response[1].data;
+      // add to each member avatar image from robohash api and textBody from /posts
       const updatedMembers = members.map(member => {
         return {
           ...member,
-          image: `https://robohash.org/${member.username}?set=set2`
+          image: `https://robohash.org/${member.username}?set=set2`,
+          text: texts[member.id].body
         }
-      })
+      });
 
       this.setState({
-        members: updatedMembers,
-        texts: response[1].data
+        members: updatedMembers
       });
+    });
+  }
+
+  clickEventHandler = id => {
+    const selectedMember = this.state.members.filter(member => id === member.id );
+
+    this.setState({
+      selectedMember
     });
   }
 
   
 
   render() {
-    const { members, texts } = this.state;
-    
-    // create new obj with updated members with text property
-    const updatedMemberObjs = members.map(member => {
-      member.text = '';
+    const { members, selectedMember } = this.state;
 
-      for ( let i = 0; i < members.length; i++ ) {
-        if ( member.id === texts[i].id ) {
-          member.text = texts[i].body;
-        }
-      }
-      return member;
-    });
-
-    const listOfMembers = updatedMemberObjs.map(item => (
+    const listOfMembers = members.map(item => (
       <CrewMember key={item.id} 
                   name={item.username} 
                   image={item.image} 
                   origin={item.address}
+                  clicked={() => this.clickEventHandler(item.id)}
       />
     ));
-    console.log(updatedMemberObjs);
 
     return (
-      <div>
+      <div className={styles.Board}>
           <section>
             <h1>Crew Members Board</h1> 
-            <div className={styles.membersContainer}>
+            <ul className={styles.membersContainer}>
               { listOfMembers }
-            </div>
+            </ul>
           </section>
 
           <section>
-            <MemberDetails />
+            <h2 style={{textAlign: 'center'}}>Selected Member Info</h2>
+            <MemberDetails member={selectedMember} />
           </section>
 
           <section>
+            <h2>Add New Member</h2>
             <AddMember />
           </section>
       </div>
