@@ -15,10 +15,16 @@ class CrewBoard extends Component {
     this.state = {
       members: [],
       selectedMember: null,
+      error: false,
+      loading: false
     }
   }
 
   componentDidMount() {
+    this.setState({
+      loading: true
+    });
+
     Promise.all([
       axios.get('https://jsonplaceholder.typicode.com/users'),
       axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -37,7 +43,13 @@ class CrewBoard extends Component {
       });
 
       this.setState({
-        members: updatedMembers
+        members: updatedMembers,
+        loading: false
+      });
+    })
+    .catch(error => {
+      this.setState({
+        error: true
       });
     });
   }
@@ -53,7 +65,7 @@ class CrewBoard extends Component {
   
 
   render() {
-    const { members, selectedMember } = this.state;
+    const { members, selectedMember, error, loading } = this.state;
 
     const listOfMembers = members.map(item => (
       <CrewMember key={item.id} 
@@ -64,8 +76,11 @@ class CrewBoard extends Component {
       />
     ));
 
-    return (
-      <div className={styles.Board}>
+    let content = <img src="loading.gif" className={styles.loading} alt="Loading icon"/>;
+
+    if (!loading) {
+      content = (
+        <React.Fragment>
           <section>
             <h1>Crew Members Board</h1> 
             <ul className={styles.membersContainer}>
@@ -82,6 +97,13 @@ class CrewBoard extends Component {
             <h2>Add New Member</h2>
             <AddMember />
           </section>
+        </React.Fragment>
+      )}
+    
+    return (
+      <div className={styles.Board}>
+        {content}
+        { error ? <p style={{textAlign: 'center'}}>Something went wrong</p> : null }
       </div>
     );
   }

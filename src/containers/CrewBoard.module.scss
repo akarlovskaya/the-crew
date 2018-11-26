@@ -1,6 +1,12 @@
 .Board {
   & > section {
-    margin: 50px 0;
+    margin: 80px 0;
+  }
+
+  .loading {
+    display: block;
+    max-width: 100px;
+    margin: 50px auto;
   }
 }
 

@@ -4,7 +4,7 @@ import styles from './AddMember.module.scss';
 
 const AddMember = () => {
   return (
-    <div>
+    <div className={styles.addWrapper}>
       <form>
         <label htmlFor="name">Name</label>
         <input type="text" id="name"/>

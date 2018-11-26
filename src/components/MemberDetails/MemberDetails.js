@@ -20,7 +20,7 @@ class MemberDetails extends Component {
 
       console.log(geo);
 
-      details = 
+      details = (
         <React.Fragment>
           <article className={styles.detailsWrapper}>
 
@@ -47,6 +47,7 @@ class MemberDetails extends Component {
 
           </article>
         </React.Fragment>
+      )
     }
     return details;
   }
