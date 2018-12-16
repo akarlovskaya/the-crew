@@ -1,0 +1,13 @@
+One way to add redux to react:
+
+1. Import createStore from redux in Index.js
+2. Initialize store varibale with createStore()
+3. Create Store folder in src with file reducer.js in it
+4. Import reducer file to index.js and pass it to createStore()
+5. Connect store to app:
+  5.1 npm install --save react-redux
+  5.2 import Provider component to index.js
+  5.3 Wrap App in Provider with property 'store' with value of our store variable
+6. Connect containers with store
+  6.1 import {connect} from 'react-redux'
+  6. specify what pieces of state and actions will be used in a container
